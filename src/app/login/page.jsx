@@ -2,7 +2,7 @@
 import InputField from "../components/inputField";
 import { motion } from 'framer-motion'
 import { AiOutlineCloseCircle } from "react-icons/ai";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -11,46 +11,46 @@ import { loginThunk, loginWithGoogleThunk } from "../features/authSlice";
 import { useRouter } from 'next/navigation'
 
 
-  
 
-import { signIn, useSession } from "next-auth/react"
+
+import { signIn, signOut, useSession } from "next-auth/react"
 import { ToastContainer, toast } from "react-toastify";
 import Footer from "../components/footer";
 import PasswordField from "../components/passwordInputField";
 
 
 export default function LoginPage() {
- 
+
   const dispatch = useDispatch()
   const router = useRouter();
   const session = useSession()
-  
-  
+
+
   const auth = useSelector(state => state.auth.user)
 
 
-  const [userInfo , setUserInfo] = useState({
-    email : "",
-    password : "",
+  const [userInfo, setUserInfo] = useState({
+    email: "",
+    password: "",
     mobileToken: ""
   })
 
 
-  
-  const handleInputChange = (e) =>{
-    setUserInfo({...userInfo  , [e.target.name] :  e.target.value})
-}
+
+  const handleInputChange = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value })
+  }
 
 
-  const handleLoginSubmit = async(e) =>{
+  const handleLoginSubmit = async (e) => {
     console.log("handleLoginSubmit")
-    if(!userInfo.email){
-     return toast.error("Email Address is required !")
+    if (!userInfo.email) {
+      return toast.error("Email Address is required !")
     }
-    if(!userInfo.password){
+    if (!userInfo.password) {
       return toast.error("Password is required !")
     }
-    console.log({userInfo})
+    console.log({ userInfo })
     const { payload } = await dispatch(loginThunk(userInfo));
     if (payload.Success) {
       router.push('/');
@@ -59,32 +59,40 @@ export default function LoginPage() {
       toast.warn(payload.error)
     }
 
-  } 
-
-useEffect(() =>{
-  if(auth._id && auth.token){
-    router.replace("/")
   }
-},[])
+
+  useEffect(() => {
+    if (auth._id && auth.token) {
+      router.replace("/")
+    }
+  }, [])
 
 
-  useEffect(()=>{
-    console.log({session})
-    if(session.status === "authenticated"){
+  useEffect(() => {
+    console.log({ session })
+    if (session.status === "authenticated") {
       // dispatch hanldeLoginWithGogle and set  user info to server
       const googleDAta = {
-        email : session.data.user.email,
-        displayName : session.data.user.name,
-        photoUrl : session.data.user.image,
-        mobileToken : ""
+        email: session.data.user.email,
+        displayName: session.data.user.name,
+        photoUrl: session.data.user.image,
+        mobileToken: ""
       }
-      dispatch(loginWithGoogleThunk(googleDAta)).then(res =>{
-       if(!res.payload.Success){
-      toast.warn(res.payload.error)
-       }
-      }).catch(err => {toast.error(err)})
+      dispatch(loginWithGoogleThunk(googleDAta)).then(res => {
+        if (!res.payload.Success) {
+          signOut({ redirect: false }).then(() =>
+            router.push('/'),
+          )
+          toast.warn(res.payload.error)
+        }
+      }).catch(err => {
+        toast.warn(err)
+        signOut({ redirect: false }).then(() =>
+          router.push('/'),
+        )
+      })
     }
-  },[session.status])
+  }, [session.status])
 
 
   return (
@@ -97,20 +105,20 @@ useEffect(() =>{
         </div>
 
         <div className="flex h-full  justify-center items-center">
-        <motion.div
-              initial={{ scale : 0.1  }}
-              animate={{ scale: 1 }}
-              transition={{ duration : .3}}
-          
-          className="bg-[#866DE8] h-[17rem] w-[17rem] rounded-full">
+          <motion.div
+            initial={{ scale: 0.1 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: .3 }}
+
+            className="bg-[#866DE8] h-[17rem] w-[17rem] rounded-full">
 
             <div className="flex flex-col relative">
 
-            <motion.div
-              initial={{ x: -100 , opacity : 0 }}
-              animate={{ x : 4 , opacity : 1 }}
-              transition={{ duration: 0.2 }}           
-              className=" relative right-[-1.5rem] ml-auto w-[6rem]">
+              <motion.div
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 4, opacity: 1 }}
+                transition={{ duration: 0.2 }}
+                className=" relative right-[-1.5rem] ml-auto w-[6rem]">
                 <Image
                   src={'/assets/loginpage_backlayer_1.png'}
                   alt="Your Image Alt Text"
@@ -120,10 +128,10 @@ useEffect(() =>{
               </motion.div>
 
               <motion.div
-              initial={{ x: 50 , opacity : 0 }}
-              animate={{ x : -1 , opacity : 1 }}
-              transition={{ duration: 0.7 }}
-              className="bg-gray-300 relative left-[-1rem] sm:left-[-2rem]  w-[6rem]">
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: -1, opacity: 1 }}
+                transition={{ duration: 0.7 }}
+                className="bg-gray-300 relative left-[-1rem] sm:left-[-2rem]  w-[6rem]">
                 <Image
                   src={'/assets/loginpage_backlayer_2.png'}
                   alt="Your Image Alt Text"
@@ -132,21 +140,21 @@ useEffect(() =>{
                 />
               </motion.div>
               <motion.div
-              initial={{ opacity: 0, y : 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
 
-              className="absolute left-[3.5rem] sm:left-[3.5rem] top-[-3.1rem]   sm:top-[-3.5rem] w-[10rem]  overflow-hidden  rounded-bl-[3rem]  rounded-br-[3rem]">
+                className="absolute left-[3.5rem] sm:left-[3.5rem] top-[-3.1rem]   sm:top-[-3.5rem] w-[10rem]  overflow-hidden  rounded-bl-[3rem]  rounded-br-[3rem]">
                 <Image
                   src={'/assets/phone_ss.png'}
                   alt="Image"
                   className="w-full h-full"
-                  width={800} 
+                  width={800}
                   height={800}
                 />
               </motion.div>
-          </div>
-              </motion.div>
+            </div>
+          </motion.div>
         </div>
 
       </div>
@@ -161,8 +169,8 @@ useEffect(() =>{
         </p>
         <p className="text-xl font-normal  mt-5">Please enter your details</p>
 
-        <div onClick={()=>{signIn("google")}} className="googleBtn cursor-pointer my-10 py-3 w-8/12 mx-auto flex rounded-full justify-center items-center gap-3 border border-gray-200 flex-row">
-          <Image width={20} height={20} src={'/assets/googleLogo.png'}  alt="Image"/>
+        <div onClick={() => { signIn("google") }} className="googleBtn cursor-pointer my-10 py-3 w-8/12 mx-auto flex rounded-full justify-center items-center gap-3 border border-gray-200 flex-row">
+          <Image width={20} height={20} src={'/assets/googleLogo.png'} alt="Image" />
           <p className="text-sm font-semibold">Sign In with google</p>
         </div>
 
@@ -173,26 +181,26 @@ useEffect(() =>{
           <p className="border border-b  border-gray-300 w-5/12"></p>
         </div>
         <div className="mt-10 w-10/12 mx-auto">
-          <InputField  onChange={(e)=>{handleInputChange(e)}} label="Email" type="text" name="email" placeholder="Email Address" />
+          <InputField onChange={(e) => { handleInputChange(e) }} label="Email" type="text" name="email" placeholder="Email Address" />
         </div>
         <div className="mt-5 w-10/12 mx-auto">
-          <PasswordField  onChange={(e)=>{handleInputChange(e)}} label="Password"  name="password" placeholder="Password" />
+          <PasswordField onChange={(e) => { handleInputChange(e) }} label="Password" name="password" placeholder="Password" />
         </div>
         <p className="text-sm font-normal text-blue-400 text-end w-8/12 mt-2">Forget Password ?</p>
 
 
 
-      <div className="flex w-8/12 mt-20">
-        <button onClick={handleLoginSubmit} className="rounded-full py-3 px-3 w-full text-center bg-[#7B64D6] text-white">  
-          Login
-        </button>
+        <div className="flex w-8/12 mt-20">
+          <button onClick={handleLoginSubmit} className="rounded-full py-3 px-3 w-full text-center bg-[#7B64D6] text-white">
+            Login
+          </button>
+        </div>
+
+        <p className=" font-medium mt-3 text-center text-gray-800">Login as guest</p>
+        <p className=" font-normal  mt-3  mb-6 text-center text-gray-800">Don’t have an account? <a href="/register" className="text-blue-500">Register</a></p>
+
+
       </div>
-
-      <p className=" font-medium mt-3 text-center text-gray-800">Login as guest</p>
-      <p className=" font-normal  mt-3  mb-6 text-center text-gray-800">Don’t have an account? <a href="/register" className="text-blue-500">Register</a></p>
-
-
-      </div>
-  </div>
+    </div>
   )
 }
