@@ -19,7 +19,7 @@ import Footer from "../components/footer";
 import PasswordField from "../components/passwordInputField";
 
 
-export default function page() {
+export default function LoginPage() {
  
   const dispatch = useDispatch()
   const router = useRouter();

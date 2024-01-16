@@ -12,7 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 
-export default function page() {
+export default function RegsiterPage() {
 
     const [userInfo, setUserInfo] = useState({
         fullname: "",
@@ -132,19 +132,7 @@ export default function page() {
 
 
 
-{/* 
-<ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={true}
-newestOnTop={true}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/> */}
+
             <div className="w-full mx-auto h-[100vh] hidden sm:block  sm:w-6/12 bg-[#7B64D6]">
                 <div className="flex m-5">
                     <Image src={'/assets/logo_540.png'} width={100} height={120} className="w-32" alt="Image" />

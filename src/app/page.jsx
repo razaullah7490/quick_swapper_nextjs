@@ -1,6 +1,6 @@
 import Navbar from "./components/navbar"
 
-function page() {
+function Home() {
 
   return (
     <>
@@ -10,4 +10,4 @@ function page() {
   )
 }
 
-export default page
+export default Home
