@@ -3,25 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.navbarGradient {
+    background: #54b5fa;
+    background: -webkit-linear-gradient(82deg, #54b5fa 0%, #7a69d6 30%, #c330a2 100%);
+    background: linear-gradient(82deg, #54b5fa 0%, #7a69d6 30%, #c330a2 100%);
 }
