@@ -61,7 +61,6 @@ export default function LoginPage() {
 
   } 
 
-console.log({auth})
 useEffect(() =>{
   if(auth._id && auth.token){
     router.replace("/")

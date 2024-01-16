@@ -44,6 +44,7 @@ const authSlice = createSlice({
   reducers: {
     logout : (state , action) =>{
       localStorage.removeItem("user");
+      window.location="/"
     }
   },
   extraReducers: (builder) => {
@@ -98,5 +99,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { increment, decrement } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;
