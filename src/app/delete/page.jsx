@@ -1,10 +1,10 @@
 "use client"
-import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAccountThunk } from "../features/authSlice";
-import { useSession } from "next-auth/react";
 import Navbar from "../components/navbar";
 import { toast } from "react-toastify";
+import { useRouter } from 'next/navigation'
+import { useEffect } from "react";
 
 
 
@@ -13,19 +13,20 @@ import { toast } from "react-toastify";
 const DeleteProfile = () => {
   const authInfo = useSelector((state) => state.auth.user);
   const dispatch = useDispatch()
-  const router = useRouter()
+  const router = useRouter();
 
  
-  if(!authInfo.id && !authInfo.token){
-    return (router.push("/login"))
-  }
+  useEffect(()=>{
+    if(!authInfo.id && !authInfo.token){
+      return (router.push("/login"))
+    }
+
+  },[])
  
-  console.log({authInfo})
 const hanldeDeleteBtn  = async() =>{
     const { payload } = await dispatch(deleteAccountThunk(authInfo));
     if (payload?.Success) {
       toast.success("Your Account has Been Deleted !")
-      router.push('/login');
     } else {
       console.error("Login failed. Handle the error appropriately.");
       // You might want to display an error message to the user or take other actions.
