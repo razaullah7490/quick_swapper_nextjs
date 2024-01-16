@@ -28,13 +28,16 @@ const Navbar = () => {
                             <Image src={'/assets/Matches.svg'}  width={24} height={24}/>
                             <Image src={'/assets/Notification.svg'}  width={24} height={24}/>
                         </div>
-                        <div className="rounded-full w-10 h-10 bg-gray-700 ">
+                        <div className="rounded-md flex px-3 py-2  ">
                             {/* <Image src={'/assets/Chat.svg'}  width={24} height={24}/> */}
+                            <Link href={'/login'} className="flex flex-row bg-gray-50 rounded-full py-2   px-5 items-center   gap-4">
+                            Login</Link>
+
                         </div>
-                        <Link href={'/'} className="flex flex-row bg-gray-50 rounded-full py-2   px-5 items-center   gap-4">
+                        {/* <Link href={'/'} className="flex flex-row bg-gray-50 rounded-full py-2   px-5 items-center   gap-4">
                             <GoPlus size={25} color="black"/>
                             <span className="font-medium">Add Product</span>
-                        </Link>
+                        </Link> */}
                     </div>
                 </div>
             </div>
