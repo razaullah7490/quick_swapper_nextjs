@@ -79,6 +79,7 @@ useEffect(() =>{
         mobileToken : ""
       }
       dispatch(loginWithGoogleThunk(googleDAta)).then(res =>{
+        console.log({res})
        if(!res.payload.Success){
       toast.warn(payload.error)
        }
