@@ -82,7 +82,7 @@ useEffect(() =>{
        if(!res.payload.Success){
       toast.warn(res.payload.error)
        }
-      }).catch(err => console.log({err}))
+      }).catch(err => {toast.error(err)})
     }
   },[session.status])
 
