@@ -65,7 +65,7 @@ export default function LoginPage() {
     if (auth._id && auth.token) {
       router.replace("/")
     }
-  }, [])
+  }, [dispatch])
 
 
   useEffect(() => {

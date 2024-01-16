@@ -73,6 +73,9 @@ const authSlice = createSlice({
       })
       .addCase(deleteAccountThunk.fulfilled, (state, action) => {
        localStorage.removeItem("user")
+       state.user._id = "",
+       state.user.email = "",
+       state.user.token = ""
       })
       .addCase(deleteAccountThunk.rejected, (state, action) => {
         state.loading=false
