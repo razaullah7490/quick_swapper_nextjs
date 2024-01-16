@@ -5,7 +5,7 @@ function page() {
   return (
     <>
     <Navbar/>
-    <p className="text-center text-3xl my-16 font-bold text-indigo-500">WELCOME  To Quick Swapper</p>
+    <p className="text-center text-lg sm:text-3xl my-16 font-bold text-indigo-500">WELCOME  To Quick Swapper</p>
     </>
   )
 }

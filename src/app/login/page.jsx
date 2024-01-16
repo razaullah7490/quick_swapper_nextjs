@@ -54,6 +54,7 @@ export default function page() {
     if (payload.Success) {
       router.push('/');
     } else {
+      toast.warn(payload.message)
       toast.warn(payload.error)
     }
 
@@ -73,7 +74,7 @@ export default function page() {
     <div className="flex flex-col sm:flex-row w-full overflow-hidden ">
 
 
-      <div className="w-full mx-auto h-[100vh]  sm:w-6/12 bg-[#7B64D6]">
+      <div className="w-full hidden sm:block mx-auto h-[100vh]  sm:w-6/12 bg-[#7B64D6]">
         <div className="flex m-5">
           <Image src={'/assets/logo_540.png'} width={100} height={120} className="w-32" alt="Image" />
         </div>
