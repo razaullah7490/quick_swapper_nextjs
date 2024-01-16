@@ -79,7 +79,9 @@ useEffect(() =>{
         mobileToken : ""
       }
       dispatch(loginWithGoogleThunk(googleDAta)).then(res =>{
-        console.log({res})
+       if(!res.payload.Success){
+      toast.warn(payload.error)
+       }
       }).catch(err => console.log({err}))
     }
   },[session.status])
