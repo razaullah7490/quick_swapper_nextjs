@@ -92,7 +92,7 @@ export default function LoginPage() {
         )
       })
     }
-  }, [session.status])
+  }, [session.status , dispatch])
 
 
   return (

@@ -15,7 +15,37 @@ const Navbar = () => {
         <>
 
             <div className='navbarGradient py-3 flex flex-col'>
-                <div className="flex flex-row w-11/12 mx-auto justify-between items-center">
+                <div className="flex flex-row w-11/12 mx-auto justify-between items-center sm:hidden">
+                <Link href={'/'}>
+                        <Image src={'/assets/logo_540.png'} className="w-[100px] h-[30.25px]" height={200} width={200} />
+                    </Link>
+                    <div className="rounded-md flex px-3 py-2 relative ">
+                            {/* <Image src={'/assets/Chat.svg'}  width={24} height={24}/> */}
+                            {authInfo.token ? (<>
+                                <button onClick={() => { setShowProfilePopup(prev => !prev) }} className="flex flex-row bg-gray-50 rounded-full py-2   px-5 items-center   gap-4">
+                                    Profile</button>
+                                {showProfilePopup && (
+                                    <div className="absolute flex flex-col bg-gray-50 rounded-md  gap-4 w-[12rem] py-4 px-4 right-3 top-14">
+                                        <div className="flex gap-3 flex-row">
+                                            <div className="w-10 h-10 rounded-full bg-gray-300"></div>
+                                            <div className="flex flex-col">
+                                                <p className="text-sm font-medium">{authInfo?.name}</p>
+                                            </div>
+                                        </div>
+                                        <button onClick={()=>{dispatch(logout())}} className="py-1 px-2 bg-white rounded-full border border-red-300">Logout</button>
+                                        <button onClick={()=>{router.push("/delete")}} className="py-1 px-2 bg-red-600 text-white rounded-full ">Delete Account</button>
+                                    </div>
+                                )}
+                            </>
+                            ) : (
+                                <Link href={'/login'} className="flex flex-row bg-gray-50 rounded-full py-2   px-5 items-center   gap-4">
+                                    Login</Link>
+
+                            )}
+                        </div>
+                </div>
+
+                <div className="hidden sm:flex flex-row w-11/12 mx-auto justify-between items-center">
                     <p className="text-white text-sm">Welcome to Quick Swapper</p>
                     <div className="text-white text-sm  flex flex-row items-center  gap-3">
                         <Image src={'/assets/DeviceMobileCamera.svg'} width={24} height={24} />
