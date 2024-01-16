@@ -27,6 +27,7 @@ const hanldeDeleteBtn  = async() =>{
     const { payload } = await dispatch(deleteAccountThunk(authInfo));
     if (payload?.Success) {
       toast.success("Your Account has Been Deleted !")
+      return (router.push("/login"))
     } else {
       console.error("Login failed. Handle the error appropriately.");
       // You might want to display an error message to the user or take other actions.
