@@ -7,7 +7,7 @@ import { useSelector , useDispatch } from "react-redux";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { logIn } from "../services/authService";
-import { loginThunk } from "../features/authSlice";
+import { loginThunk, loginWithGoogleThunk } from "../features/authSlice";
 import { useRouter } from 'next/navigation'
 
 
@@ -26,9 +26,8 @@ export default function LoginPage() {
   const session = useSession()
   
   
-  const auth = useSelector(state => state.auth)
+  const auth = useSelector(state => state.auth.user)
 
-  console.log({auth})
 
   const [userInfo , setUserInfo] = useState({
     email : "",
@@ -36,6 +35,8 @@ export default function LoginPage() {
     mobileToken: ""
   })
 
+
+  
   const handleInputChange = (e) =>{
     setUserInfo({...userInfo  , [e.target.name] :  e.target.value})
 }
@@ -60,12 +61,27 @@ export default function LoginPage() {
 
   } 
 
+console.log({auth})
+useEffect(() =>{
+  if(auth._id && auth.token){
+    router.replace("/")
+  }
+},[])
+
 
   useEffect(()=>{
     console.log({session})
     if(session.status === "authenticated"){
       // dispatch hanldeLoginWithGogle and set  user info to server
-      // router.push("/")
+      const googleDAta = {
+        email : session.data.user.email,
+        displayName : session.data.user.name,
+        photoUrl : session.data.user.image,
+        mobileToken : ""
+      }
+      dispatch(loginWithGoogleThunk(googleDAta)).then(res =>{
+        console.log({res})
+      }).catch(err => console.log({err}))
     }
   },[session.status])
 

@@ -16,10 +16,18 @@ export const signUp = async(data) =>{
 
 
 export const logIn = async(data) =>{
-    console.log('seriece called')
 
     try {
         const resp = await axios.post(baseURL+"/login/user" , data)
+        return resp.data
+    } catch (error) {
+        console.log({error})
+    }
+}
+export const logInWithGoogle = async(data) =>{
+
+    try {
+        const resp = await axios.post(baseURL+"/google/login/user" , data)
         return resp.data
     } catch (error) {
         console.log({error})
